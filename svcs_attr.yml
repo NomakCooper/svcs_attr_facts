@@ -1,0 +1,38 @@
+---
+- name: Run svcs attr module
+  hosts: all
+  become: true
+  become_method: sudo
+
+  # Gather Fatc
+  pre_tasks:
+
+  - name: "Gather fact"
+    setup:
+      filter:
+      - 'ansible_os_family'
+
+  tasks:
+
+  # check OS Type
+  - name: "Check OS Type"
+    fail:
+      msg: The system is not Solaris
+    when: ( ansible_os_family != "Solaris" )
+
+  # run custom
+  - name: run custom svcs attr module
+    svcs_attr_facts:
+      fmri: "svc:/network/smtp:sendmail"
+      alias: sendmail
+
+  # set fact for print:
+  - name: set fact for print
+    set_fact:
+      sendmail_state: "{{ ansible_facts.sendmail_attr| map(attribute='state') | first }}"
+      sendmail_logfile: "{{ ansible_facts.sendmail_attr| map(attribute='logfile') | first }}"
+
+  # print state of sendmail service
+  - name: print state and logfile of sendmail service
+    debug:
+      msg: "sendmail service is {{sendmail_state}}. Check logfile {{sendmail_logfile}} for info."       
