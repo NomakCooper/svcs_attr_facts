@@ -108,7 +108,7 @@ ok: [sol11host] => {
 
 |Key          |Type  |Description                                                                            |Returned|Sample                                                    |
 |-------------|------|---------------------------------------------------------------------------------------|--------|----------------------------------------------------------|
-|'alias'_attr |list / elements=string|SMF Services list                                                      |        |                                                          |
+|'alias'_attr |list / elements=string|SMF Service attribute list                                                      |        |                                                          |
 |fmri         |string|The FMRI of the service instance.                                                      |always  |"svc:/network/smtp:sendmail"                              |
 |name         |string|The complite name of service.                                                          |always  |"sendmail SMTP mail transfer agent"                       |
 |enabled      |string|If the service instance is enabled or disabled.                                        |always  |"true"                                                    |
