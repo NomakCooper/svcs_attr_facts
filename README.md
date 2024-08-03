@@ -1,3 +1,8 @@
+<meta name="author" content="Marco Noce">
+<meta name="description" content="Gathers facts about Solaris SMF attribute for a specific services by svcs.">
+<meta name="copyright" content="Marco Noce 2024">
+<meta name="keywords" content="ansible, module, solaris, svcs, attribute, smf, service">
+
 <div align="center">
 
 ![Ansible Custom Module][ansible-shield]
