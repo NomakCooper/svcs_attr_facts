@@ -47,7 +47,7 @@ ansible_facts:
   returned: always
   type: complex
   contains:
-    'alias'_list:
+    'alias'_attr:
       description: A list of attribute of SMF service. ( the list name is created from the alias entered as a parameter )
       returned: always
       type: list
