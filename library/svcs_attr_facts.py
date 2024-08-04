@@ -32,7 +32,7 @@ options:
         description:
             - Service alias, a name of your choice which will then be automatically assigned to the dict object name.
         required: true
-        type: str        
+        type: str
 '''
 
 EXAMPLES = r'''
