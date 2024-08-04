@@ -197,8 +197,7 @@ def main():
                         join = {
                             k: v,
                         }
-
-                  merged.update(join)
+                    merged.update(join)
 
             result['ansible_facts'][svcname + '_attr'].append(merged)
     except (KeyError, EnvironmentError) as e:
