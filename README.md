@@ -121,6 +121,10 @@ ok: [sol11host] => {
 |manifest     |string|The .xml manifest file of the service instance.                                        |always  |"/lib/svc/manifest/network/smtp-sendmail.xml"             |
 |dependency(n)|string|The dependency service. ( the number of dependencies changes according to the service )|always  |"optional_all/none svc:/system/filesystem/autofs (online)"|
 
+## SANITY TEST
+
+* Ansible sanity test is available in [SANITY.md] file
+
 ## Integration
 
 1. Assuming you are in the root folder of your ansible project.
@@ -161,3 +165,4 @@ $ cp path/to/module library
 
 
 [svcs]: https://docs.oracle.com/cd/E86824_01/html/E54763/svcs-1.html
+[SANITY.md]: SANITY.md
