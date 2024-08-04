@@ -22,6 +22,17 @@ short_description: Gathers facts about solaris SMF attribute for a specific serv
 notes:
   - |
     This module shows the list of attribute of solaris SMF service.
+options:
+    fmri:
+        description:
+            - The FMRI of the service instance.
+        required: true
+        type: str
+    alias:
+        description:
+            - Service alias, a name of your choice which will then be automatically assigned to the dict object name.
+        required: true
+        type: str        
 '''
 
 EXAMPLES = r'''
@@ -47,7 +58,7 @@ ansible_facts:
   returned: always
   type: complex
   contains:
-    'alias'_attr:
+    alias_attr:
       description: A list of attribute of SMF service. ( the list name is created from the alias entered as a parameter )
       returned: always
       type: list
