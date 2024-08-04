@@ -124,12 +124,13 @@ def smf_parse(raw):
         param, value = cells
 
         result = {
-                param: value,
-            }
+            param: value,
+        }
 
         results.append(result)
 
     return results
+
 
 def main():
     module = AnsibleModule(
@@ -174,7 +175,6 @@ def main():
         if bin_path is None:
             raise EnvironmentError(msg='Unable to find any of the supported commands in PATH: {0}'.format(", ".join(sorted(commands_map))))
 
-
         args = commands_map[command]['args']
         rc, stdout, stderr = module.run_command([bin_path] + args)
         if rc == 0:
@@ -187,20 +187,16 @@ def main():
             ck = 0
 
             for svcsl in results:
-              for k, v in svcsl.items():
-                  if k.startswith("dependency"):
-                    ck += 1
-                    join = {
-
-                        k + str(ck): v,
-
-                    }
-                  else:
-                    join = {
-
-                        k: v,
-
-                    }
+                for k, v in svcsl.items():
+                    if k.startswith("dependency"):
+                        ck += 1
+                        join = {
+                            k + str(ck): v,
+                        }
+                    else:
+                        join = {
+                            k: v,
+                        }
 
                   merged.update(join)
 
