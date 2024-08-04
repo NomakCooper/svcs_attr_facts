@@ -81,35 +81,34 @@ ansible_facts:
           description: date and time of the last transaction of the current status.
           returned: always
           type: str
-          sample: "August  1, 2024 at  6:34:29 PM CEST"          
+          sample: "August  1, 2024 at  6:34:29 PM CEST"
         logfile:
           description: The log file of service instance.
           returned: always
           type: str
-          sample: "/var/svc/log/network-smtp:sendmail.log"           
+          sample: "/var/svc/log/network-smtp:sendmail.log"
         restarter:
           description: The master restarter daemon for SMF
           returned: always
           type: str
-          sample: "svc:/system/svc/restarter:default"             
+          sample: "svc:/system/svc/restarter:default"
         contract_id:
           description: The primary contract ID for the service instance.
           returned: always
           type: str
-          sample: "133 "          
+          sample: "133 "
         manifest:
           description: The .xml manifest file of the service instance.
           returned: always
           type: str
-          sample: "/lib/svc/manifest/network/smtp-sendmail.xml"         
+          sample: "/lib/svc/manifest/network/smtp-sendmail.xml"
         dependency(n):
           description: The dependency service. ( the number of dependencies changes according to the service )
           returned: always
           type: str
-          sample: "optional_all/none svc:/system/filesystem/autofs (online)"                                                 
+          sample: "optional_all/none svc:/system/filesystem/autofs (online)"
 '''
 
-import re
 import platform
 from ansible.module_utils.common.text.converters import to_native
 from ansible.module_utils.basic import AnsibleModule
@@ -127,7 +126,7 @@ def smf_parse(raw):
         result = {
                 param: value,
             }
-        
+
         results.append(result)
 
     return results
@@ -150,7 +149,7 @@ def main():
             'parse_func': smf_parse
         },
     }
-    
+
     commands_map['svcs']['args'] = command_args
 
     if platform.system() != 'SunOS':
@@ -175,33 +174,33 @@ def main():
         if bin_path is None:
             raise EnvironmentError(msg='Unable to find any of the supported commands in PATH: {0}'.format(", ".join(sorted(commands_map))))
 
-        
+
         args = commands_map[command]['args']
         rc, stdout, stderr = module.run_command([bin_path] + args)
         if rc == 0:
             parse_func = commands_map[command]['parse_func']
             results = parse_func(stdout)
-            
+
             # time to merge
             merged = {}
             # counter for dependeny duplicate
             ck = 0
 
             for svcsl in results:
-              for k, v in svcsl.items():                  
+              for k, v in svcsl.items():
                   if k.startswith("dependency"):
-                    ck += 1              
+                    ck += 1
                     join = {
-                        
+
                         k + str(ck): v,
 
                     }
-                  else:                    
+                  else:
                     join = {
-                        
+
                         k: v,
 
-                    }                    
+                    }
 
                   merged.update(join)
 
